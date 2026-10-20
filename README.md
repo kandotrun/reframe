@@ -51,7 +51,7 @@ PyTorchとONNX Runtimeの出力差は最大 `8.94e-8`、許容差は `1e-5` で�
 
 ## 再現
 
-Node.js 22.12以上とPython 3.12を使います。
+Node.js 24以上とPython 3.12を使います。
 
 ```bash
 npm ci
