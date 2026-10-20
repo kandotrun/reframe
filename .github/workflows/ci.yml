@@ -27,7 +27,9 @@ jobs:
       - run: sudo apt-get install --yes fonts-noto-cjk
       - name: Browser journey
         run: |
-          npm run dev &
+          npm run dev > /tmp/reframe-vite.log 2>&1 &
+          dev_pid=$!
+          trap 'kill "$dev_pid" 2>/dev/null || true' EXIT
           ready=false
           for _attempt in {1..30}; do
             if curl --fail --silent http://127.0.0.1:5188/; then
