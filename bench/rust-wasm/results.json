@@ -1,78 +1,78 @@
 {
-  "measuredAt": "2026-10-20T13:28:16.435Z",
+  "measuredAt": "2026-10-20T13:32:21.983Z",
   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36",
   "startup": {
-    "wasmLoadAndInstantiateMs": 13.599999904632568,
+    "wasmLoadAndInstantiateMs": 14.699999928474426,
     "smallImpactBuild": {
       "typescriptMs": 0.10000002384185791,
       "rustWasmMs": 0.20000004768371582
     },
     "smallSearchBuild": {
-      "typescriptMs": 0.30000007152557373,
-      "rustWasmMs": 0.6999999284744263
+      "typescriptMs": 0.40000009536743164,
+      "rustWasmMs": 0.7999999523162842
     },
     "largeImpactBuild": {
       "typescriptMs": 0,
-      "rustWasmMs": 0.19999992847442627
+      "rustWasmMs": 0.10000002384185791
     },
     "largeSearchBuild": {
-      "typescriptMs": 98.29999995231628,
-      "rustWasmMs": 110.60000002384186
+      "typescriptMs": 113.60000002384186,
+      "rustWasmMs": 128.60000002384186
     }
   },
   "cases": [
     {
       "name": "影響伝播: 9ノード",
-      "typescriptMs": 0.000045,
-      "typescriptP95Ms": 0.00006599999904632568,
-      "rustWasmMs": 0.000055,
-      "rustWasmP95Ms": 0.00006799999952316284,
-      "ratio": 0.8181818181818182,
+      "typescriptMs": 0.000047999999523162844,
+      "typescriptP95Ms": 0.000075,
+      "rustWasmMs": 0.00005699999928474426,
+      "rustWasmP95Ms": 0.00007299999952316284,
+      "ratio": 0.8421052653593591,
       "resultMatch": true
     },
     {
       "name": "影響伝播: 50,000ノード",
-      "typescriptMs": 0.6400000095367432,
-      "typescriptP95Ms": 0.6799999952316285,
-      "rustWasmMs": 0.5,
-      "rustWasmP95Ms": 0.5200000047683716,
-      "ratio": 1.2800000190734864,
+      "typescriptMs": 0.7,
+      "typescriptP95Ms": 0.7599999904632568,
+      "rustWasmMs": 0.5400000095367432,
+      "rustWasmP95Ms": 0.6,
+      "ratio": 1.2962962734028802,
       "resultMatch": true
     },
     {
       "name": "検索: 5文書",
-      "typescriptMs": 0.007065000003576278,
-      "typescriptP95Ms": 0.007354999995231628,
-      "rustWasmMs": 0.006794999998807907,
-      "rustWasmP95Ms": 0.0069199999988079075,
-      "ratio": 1.0397351000464663,
+      "typescriptMs": 0.007284999996423722,
+      "typescriptP95Ms": 0.007714999997615814,
+      "rustWasmMs": 0.007014999997615814,
+      "rustWasmP95Ms": 0.007104999995231629,
+      "ratio": 1.0384889520883354,
       "resultMatch": true
     },
     {
       "name": "検索: 5,000文書",
-      "typescriptMs": 18.80000001192093,
-      "typescriptP95Ms": 20.05000001192093,
-      "rustWasmMs": 5.100000023841858,
-      "rustWasmP95Ms": 6,
-      "ratio": 3.6862744949084894,
+      "typescriptMs": 29.94999998807907,
+      "typescriptP95Ms": 32.75,
+      "rustWasmMs": 7.650000035762787,
+      "rustWasmP95Ms": 9.699999988079071,
+      "ratio": 3.915032659877986,
       "resultMatch": true
     },
     {
       "name": "差分: 88文字",
-      "typescriptMs": 0.00016,
-      "typescriptP95Ms": 0.00018599999904632568,
-      "rustWasmMs": 0.0009230000007152558,
-      "rustWasmP95Ms": 0.001017999999523163,
-      "ratio": 0.17334777884725028,
+      "typescriptMs": 0.00017699999928474426,
+      "typescriptP95Ms": 0.00020100000023841859,
+      "rustWasmMs": 0.0010339999997615813,
+      "rustWasmP95Ms": 0.0010960000002384186,
+      "ratio": 0.17117988329357517,
       "resultMatch": true
     },
     {
       "name": "差分: 100,000文字",
-      "typescriptMs": 0.1900000035762787,
-      "typescriptP95Ms": 0.2,
-      "rustWasmMs": 0.5800000011920929,
-      "rustWasmP95Ms": 0.5899999976158142,
-      "ratio": 0.32758621238925084,
+      "typescriptMs": 0.20500000119209288,
+      "typescriptP95Ms": 0.21000000238418579,
+      "rustWasmMs": 0.6850000023841858,
+      "rustWasmP95Ms": 0.6900000035762787,
+      "ratio": 0.2992700736913539,
       "resultMatch": true
     }
   ],
