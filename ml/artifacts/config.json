@@ -1,0 +1,15 @@
+{
+  "seed": 29,
+  "epochs": 100,
+  "batchSize": 16,
+  "learningRate": 0.002,
+  "weightDecay": 0.0001,
+  "temperature": 0.09,
+  "featureDim": 2048,
+  "hiddenDim": 128,
+  "embeddingDim": 64,
+  "featureVersion": "nfkc-fnv1a-codepoint-char123-v1",
+  "loss": "listwise cross-entropy, target distribution proportional to 2^relevance - 1",
+  "checkpointSelection": "highest dev nDCG@5; earlier epoch wins ties",
+  "testPolicy": "evaluated only after final dev checkpoint selection"
+}

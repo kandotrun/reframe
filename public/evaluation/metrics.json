@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "model": {
+    "name": "Reframe relevance encoder v1",
+    "architecture": "char n-gram hashing → Linear(2048,128) → tanh → Linear(128,64) → L2",
+    "parameterCount": 270336,
+    "onnxBytes": 1082190,
+    "sha256": "0b31a3296fbb37adfc8c803db9361cf0f8660ca98d71e6cc61bafe63cb72b0eb",
+    "featureDim": 2048,
+    "embeddingDim": 64,
+    "featureVersion": "nfkc-fnv1a-codepoint-char123-v1",
+    "pretrained": false
+  },
+  "data": {
+    "source": "Self-authored fictional Japanese operational changes. No private or customer data.",
+    "trainQueries": 160,
+    "trainFamilies": 16,
+    "devQueries": 32,
+    "devFamilies": 16,
+    "testQueries": 48,
+    "testFamilies": 16,
+    "splitDescription": "All splits cover the same 16 topics, but each has 16 separately authored scenario families with different queries and documents. Paraphrases stay together.",
+    "splitDescriptionJa": "同じ16テーマの中で、各分割に別の16シナリオと文書を作成。言い換えはシナリオ単位で固定。実務データや未知テーマの評価ではありません。"
+  },
+  "metrics": {
+    "lexical": {
+      "mrr": 1.0,
+      "ndcgAt5": 0.875248,
+      "recallAt5": 0.875,
+      "top1": 1.0,
+      "medianMs": 0.652,
+      "p95Ms": 0.847
+    },
+    "embedding": {
+      "mrr": 0.61307,
+      "ndcgAt5": 0.398617,
+      "recallAt5": 0.423611,
+      "top1": 0.479167,
+      "medianMs": 1.318,
+      "p95Ms": 2.981
+    },
+    "trained": {
+      "mrr": 0.715866,
+      "ndcgAt5": 0.608381,
+      "recallAt5": 0.666667,
+      "top1": 0.583333,
+      "medianMs": 1.204,
+      "p95Ms": 2.833
+    }
+  },
+  "familyBootstrap95NdcgAt5": {
+    "lexical": [
+      0.840261,
+      0.904882
+    ],
+    "embedding": [
+      0.305636,
+      0.491337
+    ],
+    "trained": [
+      0.501528,
+      0.714867
+    ]
+  },
+  "training": {
+    "epochs": 100,
+    "bestEpoch": 50,
+    "seed": 29,
+    "durationSeconds": 2.04,
+    "bestDevNdcgAt5": 0.609221
+  },
+  "parity": {
+    "maxAbsoluteError": 8.940696716308594e-08,
+    "tolerance": 1e-05
+  },
+  "measurement": {
+    "runtime": "Python 3.12.14, PyTorch 2.14.1, ONNX Runtime 1.31.0",
+    "platform": "Darwin arm64",
+    "timing": "CPU, warm session, per-query feature extraction + all candidate encoding + scoring; excludes network/model download; not browser latency",
+    "candidateCount": 18
+  },
+  "limitations": [
+    "Self-authored synthetic data, one author and a shared topic taxonomy; not independently annotated real-world evidence.",
+    "Held-out scenario families and separately authored templates reduce direct leakage but do not establish out-of-domain generalization.",
+    "A small encoder trained from scratch; no pretrained language knowledge. Random projection baseline is untrained, not a semantic embedding service.",
+    "All evaluation queries have relevant candidates. No calibrated no-answer or automatic applicability claim is made.",
+    "Relevance is distinct from validity, revision applicability, cause, safety, or approval. Those require explicit rules and human review.",
+    "Scores are relative cosine similarities, not probabilities. CPU benchmark times are not browser end-to-end times."
+  ],
+  "evaluatedAt": "2026-10-20T12:12:32.264818+00:00"
+}

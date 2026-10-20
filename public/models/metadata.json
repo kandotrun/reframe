@@ -1,0 +1,11 @@
+{
+  "name": "Reframe relevance encoder v1",
+  "architecture": "char n-gram hashing → Linear(2048,128) → tanh → Linear(128,64) → L2",
+  "parameterCount": 270336,
+  "onnxBytes": 1082190,
+  "sha256": "0b31a3296fbb37adfc8c803db9361cf0f8660ca98d71e6cc61bafe63cb72b0eb",
+  "featureDim": 2048,
+  "embeddingDim": 64,
+  "featureVersion": "nfkc-fnv1a-codepoint-char123-v1",
+  "pretrained": false
+}

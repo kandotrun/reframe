@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: 22.12.0
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install chromium --with-deps
+      - run: sudo apt-get install --yes fonts-noto-cjk
+      - run: npx wrangler dev --port 8794 &
+      - name: Wait for Worker
+        run: |
+          for _attempt in {1..30}; do
+            curl --fail --silent http://127.0.0.1:8794/api/health && exit 0
+            sleep 1
+          done
+          exit 1
+      - run: npm run test:e2e
+
+  ml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ml/requirements.lock.txt
+      - run: python -m pip install --requirement ml/requirements.lock.txt
+      - run: python -m unittest discover -s tests -p 'ml*_test.py' -v

@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "reframe",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-20",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "routes": [{ "pattern": "reframe.2-38.com", "custom_domain": true }],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "ai": { "binding": "AI" },
+  "ratelimits": [
+    { "name": "RATE_LIMITER", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "AI_BUDGET", "class_name": "DraftBudget" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DraftBudget"] }],
+  "observability": { "enabled": true, "head_sampling_rate": 0.1 }
+}

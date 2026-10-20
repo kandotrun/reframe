@@ -1,0 +1,12 @@
+{
+  "exactNormalizedCrossSplitDuplicates": 0,
+  "overlappingFamilies": 0,
+  "charNgramJaccardThreshold": 0.65,
+  "maxCrossSplitJaccard": {
+    "train:dev": 0.2377,
+    "train:test": 0.2464,
+    "dev:test": 0.2152
+  },
+  "nearDuplicatePairs": [],
+  "note": "Separate authored scenarios and text templates; shared topic vocabulary remains. Single-author synthetic labels are not independent human validation."
+}
