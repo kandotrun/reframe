@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reframe Rust/WASM benchmark</title>
+    <style>
+      :root { color: #172a44; background: #f4f7fb; font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif; }
+      body { max-width: 1040px; margin: 0 auto; padding: 48px 28px; }
+      h1 { margin: 0 0 8px; font-size: 32px; letter-spacing: -.03em; }
+      p { max-width: 74ch; color: #52677f; }
+      button { border: 0; border-radius: 6px; padding: 11px 18px; color: white; background: #245bec; font: inherit; font-weight: 700; cursor: pointer; }
+      button:disabled { cursor: wait; opacity: .6; }
+      table { width: 100%; margin-top: 24px; border-collapse: collapse; background: white; box-shadow: 0 8px 28px rgba(23, 42, 68, .08); }
+      th, td { padding: 13px 15px; border-bottom: 1px solid #dce5ef; text-align: right; white-space: nowrap; }
+      th:first-child, td:first-child { text-align: left; }
+      th { background: #eef3f9; font-size: 12px; }
+      .faster { color: #087765; font-weight: 700; }
+      .slower { color: #a4510a; font-weight: 700; }
+      pre { overflow: auto; padding: 16px; border-radius: 6px; background: #172a44; color: #e5edf7; font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <h1>TypeScript vs Rust/WASM</h1>
+    <p>
+      Reframeの検索、影響グラフ伝播、文字列差分を同じ入力で比較します。
+      数字はブラウザ内の実測で、WASM呼び出しの境界コストを含みます。索引構築とWASM初期化は別に記録します。
+    </p>
+    <button id="run" type="button">ベンチマークを実行</button>
+    <p id="status" role="status">待機中</p>
+    <div id="results"></div>
+    <script type="module">
+      import { runBenchmark } from "/benchmarks/benchmark.js";
+      const button = document.querySelector("#run");
+      const status = document.querySelector("#status");
+      const results = document.querySelector("#results");
+      async function run() {
+        button.disabled = true;
+        status.textContent = "Rust/WASMを読み込み、計測しています…";
+        try {
+          const result = await runBenchmark((message) => { status.textContent = message; });
+          window.__REFRAME_BENCHMARK_RESULT__ = result;
+          const rows = result.cases.map((item) => `<tr>
+            <td>${item.name}</td>
+            <td>${formatMs(item.typescriptMs)}</td>
+            <td>${formatMs(item.rustWasmMs)}</td>
+            <td class="${item.ratio > 1 ? "faster" : "slower"}">${item.ratio.toFixed(2)}×</td>
+            <td>${item.resultMatch ? "一致" : "不一致"}</td>
+          </tr>`).join("");
+          results.innerHTML = `<table>
+            <thead><tr><th>処理</th><th>TypeScript</th><th>Rust/WASM</th><th>TS / Rust</th><th>出力</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+          <p>1.00×より大きいほどRust/WASMが速い。初期化情報:</p>
+          <pre>${JSON.stringify(result.startup, null, 2)}</pre>`;
+          status.textContent = "計測完了";
+        } catch (error) {
+          status.textContent = `計測失敗: ${error instanceof Error ? error.message : String(error)}`;
+          throw error;
+        } finally {
+          button.disabled = false;
+        }
+      }
+      function formatMs(value) {
+        if (value < 0.01) return `${(value * 1000).toFixed(2)} µs`;
+        return `${value.toFixed(3)} ms`;
+      }
+      button.addEventListener("click", run);
+      if (new URLSearchParams(location.search).has("autorun")) run();
+    </script>
+  </body>
+</html>

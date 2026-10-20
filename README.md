@@ -49,6 +49,14 @@ PyTorchとONNX Runtimeの出力差は最大 `8.94e-8`、許容差は `1e-5` で�
 - [失敗分析](ml/ERROR_ANALYSIS.md)
 - [評価結果](public/evaluation/metrics.json)
 
+### Rust/WASMの実測
+
+検索、影響グラフ伝播、文字列差分をTypeScriptとRust/WASMで同じ入力から比較できます。現在の小さいデータではRust化しても実用的な短縮はなく、5,000文書の索引済み検索では約3.3倍速い一方、文字列差分はWASM境界のコストで遅くなりました。
+
+- [計測結果と解釈](bench/rust-wasm/RESULTS.md)
+- [ブラウザで再測定](https://reframe.2-38.com/benchmarks/)
+- 再実行: `npm run benchmark:rust`
+
 ## 再現
 
 Node.js 24以上とPython 3.12を使います。

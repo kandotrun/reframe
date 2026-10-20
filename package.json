@@ -10,6 +10,8 @@
     "prebuild": "npm run prepare:runtime",
     "dev": "vite --host 127.0.0.1 --port 5188",
     "build": "tsc --noEmit && vite build",
+    "benchmark:rust:build": "bash scripts/build-rust-benchmark.sh",
+    "benchmark:rust": "npm run benchmark:rust:build && npm run build && node scripts/run-rust-benchmark.mjs",
     "preview:static": "vite preview --host 127.0.0.1 --port 5188",
     "preview": "wrangler dev --port 8794",
     "types": "wrangler types",
